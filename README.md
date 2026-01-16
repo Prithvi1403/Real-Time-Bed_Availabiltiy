@@ -1,4 +1,4 @@
-Real Time bed availability
+Real Time bed availability for hospitals
 
 
 
