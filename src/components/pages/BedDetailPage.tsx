@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { BaseCrudService } from '@/integrations';
 import { HospitalBeds } from '@/entities';
@@ -13,6 +13,7 @@ import { ArrowLeft, Bed, Calendar, Clock, MapPin, Info, CheckCircle, XCircle } f
 
 export default function BedDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [bed, setBed] = useState<HospitalBeds | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -246,18 +247,31 @@ export default function BedDetailPage() {
 
                   <Card className="p-8 bg-gradient-to-br from-primary/5 to-secondary/5 border-primary/20">
                     <h3 className="font-heading text-xl font-bold text-foreground mb-4">
-                      Need to Reserve This Bed?
+                      {bed.isAvailable ? 'Book This Bed' : 'Bed Not Available'}
                     </h3>
                     <p className="font-paragraph text-sm text-neutral-gray mb-6">
-                      Contact our admissions team to inquire about bed availability and patient admission procedures.
+                      {bed.isAvailable 
+                        ? 'This bed is available for immediate booking. Reserve it now to secure your spot.'
+                        : 'This bed is currently occupied. Browse other available beds or contact admissions.'}
                     </p>
                     <div className="space-y-3">
-                      <Button className="w-full font-semibold">
-                        Contact Admissions
-                      </Button>
-                      <Button variant="outline" className="w-full font-semibold">
-                        Call Emergency Line
-                      </Button>
+                      {bed.isAvailable ? (
+                        <Button 
+                          className="w-full font-semibold"
+                          onClick={() => navigate(`/book/${bed._id}`)}
+                        >
+                          Book Now
+                        </Button>
+                      ) : (
+                        <Button className="w-full font-semibold" disabled>
+                          Currently Unavailable
+                        </Button>
+                      )}
+                      <Link to="/" className="block">
+                        <Button variant="outline" className="w-full font-semibold">
+                          View All Beds
+                        </Button>
+                      </Link>
                     </div>
                   </Card>
 

@@ -205,22 +205,22 @@ export default function HomePage() {
                 transition={{ duration: 0.8, delay: 0.3 }}
                 className="flex flex-wrap gap-4 pt-4"
               >
+                <Link to="/hospitals">
+                  <Button 
+                    size="lg" 
+                    className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 text-white rounded-none clip-tech-corner shadow-lg shadow-primary/20 transition-all hover:translate-y-[-2px]"
+                  >
+                    Find Hospitals
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </Link>
                 <Button 
                   onClick={() => document.getElementById('dashboard-grid')?.scrollIntoView({ behavior: 'smooth' })}
-                  size="lg" 
-                  className="h-14 px-8 text-lg bg-primary hover:bg-primary/90 text-white rounded-none clip-tech-corner shadow-lg shadow-primary/20 transition-all hover:translate-y-[-2px]"
-                >
-                  Access Dashboard
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-                <Button 
-                  onClick={loadBeds}
                   size="lg" 
                   variant="outline" 
                   className="h-14 px-8 text-lg border-2 hover:bg-neutral-gray/5 rounded-none"
                 >
-                  <RefreshCw className={`mr-2 w-5 h-5 ${isLoading ? 'animate-spin' : ''}`} />
-                  Sync Data
+                  View All Beds
                 </Button>
               </motion.div>
             </div>
@@ -456,6 +456,17 @@ export default function HomePage() {
                         </div>
                         <ArrowRight className="w-4 h-4 text-neutral-gray group-hover:text-primary group-hover:translate-x-1 transition-all" />
                       </div>
+
+                      {/* Book Button */}
+                      {bed.isAvailable && (
+                        <div className="mt-4 pt-4 border-t border-neutral-gray/10">
+                          <Link to={`/book/${bed._id}`} onClick={(e) => e.stopPropagation()}>
+                            <Button className="w-full" size="sm">
+                              Book Now
+                            </Button>
+                          </Link>
+                        </div>
+                      )}
 
                     </Card>
                   </Link>

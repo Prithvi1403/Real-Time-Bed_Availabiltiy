@@ -24,16 +24,16 @@ export default function Header() {
               Bed Availability
             </Link>
             <Link 
-              to="/#departments" 
+              to="/hospitals" 
               className="font-paragraph text-base text-neutral-gray hover:text-primary transition-colors"
             >
-              Departments
+              Hospitals
             </Link>
             <Link 
-              to="/#contact" 
+              to="/my-bookings" 
               className="font-paragraph text-base text-neutral-gray hover:text-primary transition-colors"
             >
-              Contact
+              My Bookings
             </Link>
           </nav>
         </div>
